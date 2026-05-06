@@ -4,7 +4,7 @@ import os
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-TOKEN = os.getenv("8692302867:AAFqbr8Fq94ZX3T4zOa_4-Fkrb3SS4dW1TQ")
+TOKEN = os.getenv("BOT_TOKEN")
 ADMIN_ID = 8262473875
 
 CHANNEL_USERNAME = "@cazaeuros"
