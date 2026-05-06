@@ -58,17 +58,139 @@ def load_user(user_id):
 # ------------------ APPS ------------------
 
 apps = {
-    "n26": ("N26", 15, "📲 N26\n\nBanco sin comisiones.\n\n1️⃣ Regístrate:\nhttps://n26.com\n\n2️⃣ Haz una transacción de 20€\n\n3️⃣ Recibe 15€"),
-    "bbva": ("BBVA", 50, "🎁 BBVA — 50€\n\nCódigo: 14D40040F15CBF"),
-    "imagin": ("Imagin", 50, "😄 Imagin — 50€"),
-    "openbank": ("Openbank", 70, "🏦 Openbank — 70€"),
-    "coinbase": ("Coinbase", 20, "🪙 Coinbase — 20€"),
-    "myinvestor": ("MyInvestor", 25, "🚀 MyInvestor — 25€"),
-    "kriptomat": ("Kriptomat", 25, "💎 Kriptomat — 25€"),
-    "kraken": ("Kraken", 200, "💰 Kraken — 200€"),
-    "taptap": ("TapTap", 15, "💸 TapTap — 15€"),
-    "aircash": ("Aircash", 5, "💳 Aircash — 5€"),
-    "bybit": ("Bybit", 55, "📊 Bybit — 55€")
+    "n26": ("N26", 15, """📲 N26
+Buenas 👋
+N26 es un banco sin comisiones de mantenimiento ni de tarjeta.
+📝 Pasos para llevarte 15€:
+1️⃣ Regístrate aquí:
+https://n26.com/r/joseantg09824c?cid=CTK&lang=es
+2️⃣ Haz una transacción de 20€
+3️⃣ Recibe 15€ en metálico 🎁
+Así de sencillo."""),
+
+    "bbva": ("BBVA", 50, """🎁 BBVA
+¡Hasta 450€ de regalo!
+📝 Pasos a seguir:
+1️⃣ Date de alta en BBVA con mi código amigo: 14D40040F15CBF
+👉 Abre la cuenta online aquí:
+https://www.bbva.es/general/hazte-cl...omisiones.html
+2️⃣ Activa tu tarjeta de débito Aqua Débito
+3️⃣ Haz un pago igual o superior a 50€
+4️⃣ Recibirás 50€ de parte de BBVA
+5️⃣ Si llevas tu nómina de 800€ o más, BBVA te da otros 400€"""),
+
+    "imagin": ("Imagin", 50, """😄 Imagin
+Si te das de alta en Imagin con el código A01IM88288299, te puedes llevar 50€ para comprar en Facilitea Shop 🛍️
+Yo también recibo un incentivo, así que ganamos los dos.
+👇 Enlace:
+https://imagin.pwlnk.io/uj$&JA4Qc
+📝 Pasos:
+1️⃣ Abrir cuenta en Imagin con el código A01IM88288299
+2️⃣ Realizar un ingreso mínimo de 50€
+3️⃣ Hacer un mínimo de 3 movimientos con tarjeta
+4️⃣ Activar Bizum"""),
+
+    "openbank": ("Openbank", 70, """🏦 Openbank
+Openbank es un banco sin comisiones de mantenimiento ni de tarjeta.
+📝 Pasos a seguir:
+1️⃣ Abre tu cuenta aquí:
+https://www.openbank.es/hazte-cliente
+2️⃣ Introduce alguno de estos códigos promocionales:
+56173811620102120171
+56173831512101914216
+56173841010318186122
+56173771731820171801
+56173748131181719196
+56173721514151613206
+3️⃣ Haz gastos con tarjeta que sumen 50€ o más
+4️⃣ Activa Bizum"""),
+
+    "coinbase": ("Coinbase", 20, """🪙 Coinbase
+20€ reales con Coinbase 
+Coinbase es el exchange de crypto más conocido y regulado.
+🎁 La oferta:
+20€ de Coinbase (promo oficial)
+📋 Cómo funciona:
+1️⃣ Te registras con mi enlace:
+https://coinbase.com/join/533ESYT?src=android-share
+2️⃣ Compras 21€ de cualquier cripto
+(Recomiendo USDT para evitar volatilidad y 21€ en vez de 20€ por comisiones y seguridad)
+3️⃣ Coinbase nos da 20€ en BTC a ambos"""),
+
+    "myinvestor": ("MyInvestor", 25, """🚀 MyInvestor
+MyInvestor ofrece una promo de bienvenida de 25€ si te registras con mi enlace y utilizas mi código promocional.
+📝 Pasos:
+1️⃣ Regístrate aquí:
+https://newapp.myinvestor.es/do/signup?promotionalCode=SUAPK
+2️⃣ En el paso 6/7 introduce el código:
+SUAPK
+3️⃣ Cumple una de estas dos opciones:
+Tener 1.000€ en efectivo en tu cuenta corriente
+O invertir al menos 100€ en productos de inversión
+4️⃣ En 24/48 horas recibes la bonificación de 25€"""),
+
+    "kriptomat": ("Kriptomat", 25, """💎 Kriptomat
+Kriptomat está regalando 25€ en BTC a los usuarios nuevos que se registren con mi enlace de invitación.
+🔹 ¿Cómo funciona?
+1️⃣ Regístrate aquí:
+https://app.kriptomat.io/ref/join?referral=bunt8ba4
+2️⃣ Ingresa unos 105€ mediante transferencia SEPA
+(la comisión es de 1€)
+❌ No uses tarjeta, la comisión es alta.
+3️⃣ Compra al menos 100€ en cualquier cripto
+(BTC, ETH...)
+4️⃣ Mantén esta inversión durante 30 días
+5️⃣ Recibirás automáticamente 25€ en Bitcoin 🚀
+⚡ Consejo: invierte en una cripto sólida y espera los 30 días."""),
+
+    "kraken": ("Kraken", 200, """💰 Kraken
+🪙 Pasos a seguir:
+1️⃣ Abrir cuenta en Kraken con mi código o enlace de invitación:
+Referral code: sdbsc3hp
+Referral link: https://invite.kraken.com/JDNW/06n4hbek
+2️⃣ Verifica la cuenta
+3️⃣ Deposita 202€
+4️⃣ Compra 200€ en BTC
+5️⃣ En máximo 14 días, recibes hasta 200€ de regalo en tu cuenta"""),
+
+    "taptap": ("TapTap", 15, """💸 TapTap Send
+Consigue dinero con TapTap Send.
+📝 Pasos:
+Necesitas banco español + Wise con cuenta en AUD (Australia)
+❌ Revolut AUD no sirve
+1️⃣ Descarga la app:
+👉 https://taptapsend.onelink.me/Lrab/appreferral
+2️⃣ Abre la cuenta y selecciona envío de EUR → AUD (Australia)
+3️⃣ Introduce el código promocional:
+👉 JOSEANTO113
+✔️ Comprueba que te suman 15€ al enviar 50€ o más de EUR a AUD
+📍 Si te piden una dirección australiana:
+https://generate.plus/es/direccion/australia-au
+4️⃣ Método de pago:
+Elige el que quieras. Yo usé Apple Pay con Revolut."""),
+
+    "aircash": ("Aircash", 5, """💳 Aircash
+Es una promo muy fácil:
+1️⃣ Descárgate la app de Aircash desde mi enlace y regístrate:
+https://link.aircash.eu/Referral/Index?referralCode=joseantoniog58
+2️⃣ Ingresa un mínimo de 10€ en tu cuenta
+3️⃣ Yo recibiré 10€ por la promoción, de los que te daré 5€
+4️⃣ Solo válido para Android"""),
+
+    "bybit": ("Bybit", 55, """🔥 Bybit EU
+Os dejo la promo de Bybit EU, un exchange de criptomonedas donde puedes comprar, vender y hacer trading con cientos de activos digitales.
+📝 Pasos para ganar 55€:
+Abre este enlace y verifica que te sale el código aplicado:
+https://www.bybit.eu/invite?ref=QB63O3A
+Si no te sale así, cierra el navegador y vuelve a abrir el enlace.
+1️⃣ Verifica identidad y deposita 100€
+Tienes 7 días desde el registro para depositar los 100€, si no, perderás la recompensa.
+Solo por depositar, te acreditan 45€ en BTC en los próximos 3 días.
+2️⃣ Si quieres ganar 10€ adicionales, abre Bybit EU desde el navegador y solicita la tarjeta gratuita (Bybit Card) aplicando este código:
+QB63O3A
+Importante meter el código al solicitar la tarjeta.
+Después, debes gastar 100€ en una o varias compras.""")
+
 }
 
 user_data = {}
