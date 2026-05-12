@@ -21,6 +21,21 @@ async def notify_admin(text):
     except:
         pass
 
+# ------------------ CHECK SUB ------------------
+
+async def check_subscription(user_id):
+    try:
+        member = await bot.get_chat_member(CHANNEL_USERNAME, user_id)
+
+        return member.status in [
+            "member",
+            "administrator",
+            "creator"
+        ]
+
+    except:
+        return False
+
 # ------------------ DB ------------------
 
 conn = sqlite3.connect("bot.db")
@@ -58,138 +73,194 @@ def load_user(user_id):
 # ------------------ APPS ------------------
 
 apps = {
-    "n26": ("N26", 15, """📲 N26
-Buenas 👋
-N26 es un banco sin comisiones de mantenimiento ni de tarjeta.
-📝 Pasos para llevarte 15€:
-1️⃣ Regístrate aquí:
+
+    "n26": (
+        "N26",
+        15,
+        """📲 N26
+
+Banco sin comisiones.
+
+📝 Pasos:
+
+1️⃣ Regístrate:
 https://n26.com/r/joseantg09824c?cid=CTK&lang=es
+
 2️⃣ Haz una transacción de 20€
-3️⃣ Recibe 15€ en metálico 🎁
-Así de sencillo."""),
 
-    "bbva": ("BBVA", 50, """🎁 BBVA
-¡Hasta 450€ de regalo!
-📝 Pasos a seguir:
-1️⃣ Date de alta en BBVA con mi código amigo: 14D40040F15CBF
-👉 Abre la cuenta online aquí:
-https://www.bbva.es/general/hazte-cl...omisiones.html
-2️⃣ Activa tu tarjeta de débito Aqua Débito
-3️⃣ Haz un pago igual o superior a 50€
-4️⃣ Recibirás 50€ de parte de BBVA
-5️⃣ Si llevas tu nómina de 800€ o más, BBVA te da otros 400€"""),
+3️⃣ Recibe 15€ en metálico 🎁"""
+    ),
 
-    "imagin": ("Imagin", 50, """😄 Imagin
-Si te das de alta en Imagin con el código A01IM88288299, te puedes llevar 50€ para comprar en Facilitea Shop 🛍️
-Yo también recibo un incentivo, así que ganamos los dos.
-👇 Enlace:
-https://imagin.pwlnk.io/uj$&JA4Qc
+    "bbva": (
+        "BBVA",
+        50,
+        """🎁 BBVA — Hasta 450€
+
 📝 Pasos:
-1️⃣ Abrir cuenta en Imagin con el código A01IM88288299
-2️⃣ Realizar un ingreso mínimo de 50€
-3️⃣ Hacer un mínimo de 3 movimientos con tarjeta
-4️⃣ Activar Bizum"""),
 
-    "openbank": ("Openbank", 70, """🏦 Openbank
-Openbank es un banco sin comisiones de mantenimiento ni de tarjeta.
-📝 Pasos a seguir:
-1️⃣ Abre tu cuenta aquí:
+1️⃣ Regístrate con código:
+14D40040F15CBF
+
+👉 https://www.bbva.es
+
+2️⃣ Activa tarjeta Aqua Débito
+
+3️⃣ Haz un pago de 50€
+
+4️⃣ Recibes 50€
+
+5️⃣ +400€ si domicilias nómina"""
+    ),
+
+    "imagin": (
+        "Imagin",
+        50,
+        """😄 Imagin — 50€
+
+📝 Pasos:
+
+1️⃣ Regístrate con código:
+A01IM88288299
+
+👉 https://imagin.pwlnk.io/uj$&JA4Qc
+
+2️⃣ Ingresa 50€
+
+3️⃣ Haz 3 pagos con tarjeta
+
+4️⃣ Activa Bizum"""
+    ),
+
+    "openbank": (
+        "Openbank",
+        70,
+        """🏦 Openbank — 70€
+
+📝 Pasos:
+
+1️⃣ Regístrate:
 https://www.openbank.es/hazte-cliente
-2️⃣ Introduce alguno de estos códigos promocionales:
-56173811620102120171
-56173831512101914216
-56173841010318186122
-56173771731820171801
-56173748131181719196
-56173721514151613206
-3️⃣ Haz gastos con tarjeta que sumen 50€ o más
-4️⃣ Activa Bizum"""),
 
-    "coinbase": ("Coinbase", 20, """🪙 Coinbase
-20€ reales con Coinbase 
-Coinbase es el exchange de crypto más conocido y regulado.
-🎁 La oferta:
-20€ de Coinbase (promo oficial)
-📋 Cómo funciona:
-1️⃣ Te registras con mi enlace:
+2️⃣ Usa códigos promocionales
+
+3️⃣ Gasta 50€ con tarjeta
+
+4️⃣ Activa Bizum"""
+    ),
+
+    "coinbase": (
+        "Coinbase",
+        20,
+        """🪙 Coinbase — 20€
+
+📝 Pasos:
+
+1️⃣ Regístrate:
 https://coinbase.com/join/533ESYT?src=android-share
-2️⃣ Compras 21€ de cualquier cripto
-(Recomiendo USDT para evitar volatilidad y 21€ en vez de 20€ por comisiones y seguridad)
-3️⃣ Coinbase nos da 20€ en BTC a ambos"""),
 
-    "myinvestor": ("MyInvestor", 25, """🚀 MyInvestor
-MyInvestor ofrece una promo de bienvenida de 25€ si te registras con mi enlace y utilizas mi código promocional.
+2️⃣ Compra 21€ en cripto
+
+3️⃣ Recibes 20€ en BTC 🎁"""
+    ),
+
+    "myinvestor": (
+        "MyInvestor",
+        25,
+        """🚀 MyInvestor — 25€
+
 📝 Pasos:
-1️⃣ Regístrate aquí:
+
+1️⃣ Regístrate:
 https://newapp.myinvestor.es/do/signup?promotionalCode=SUAPK
-2️⃣ En el paso 6/7 introduce el código:
-SUAPK
-3️⃣ Cumple una de estas dos opciones:
-Tener 1.000€ en efectivo en tu cuenta corriente
-O invertir al menos 100€ en productos de inversión
-4️⃣ En 24/48 horas recibes la bonificación de 25€"""),
 
-    "kriptomat": ("Kriptomat", 25, """💎 Kriptomat
-Kriptomat está regalando 25€ en BTC a los usuarios nuevos que se registren con mi enlace de invitación.
-🔹 ¿Cómo funciona?
-1️⃣ Regístrate aquí:
-https://app.kriptomat.io/ref/join?referral=bunt8ba4
-2️⃣ Ingresa unos 105€ mediante transferencia SEPA
-(la comisión es de 1€)
-❌ No uses tarjeta, la comisión es alta.
-3️⃣ Compra al menos 100€ en cualquier cripto
-(BTC, ETH...)
-4️⃣ Mantén esta inversión durante 30 días
-5️⃣ Recibirás automáticamente 25€ en Bitcoin 🚀
-⚡ Consejo: invierte en una cripto sólida y espera los 30 días."""),
+2️⃣ Código: SUAPK
 
-    "kraken": ("Kraken", 200, """💰 Kraken
-🪙 Pasos a seguir:
-1️⃣ Abrir cuenta en Kraken con mi código o enlace de invitación:
-Referral code: sdbsc3hp
-Referral link: https://invite.kraken.com/JDNW/06n4hbek
-2️⃣ Verifica la cuenta
-3️⃣ Deposita 202€
-4️⃣ Compra 200€ en BTC
-5️⃣ En máximo 14 días, recibes hasta 200€ de regalo en tu cuenta"""),
+3️⃣ Cumple requisitos
 
-    "taptap": ("TapTap", 15, """💸 TapTap Send
-Consigue dinero con TapTap Send.
+4️⃣ Recibes 25€"""
+    ),
+
+    "kriptomat": (
+        "Kriptomat",
+        25,
+        """💎 Kriptomat — 25€ BTC
+
 📝 Pasos:
-Necesitas banco español + Wise con cuenta en AUD (Australia)
-❌ Revolut AUD no sirve
-1️⃣ Descarga la app:
-👉 https://taptapsend.onelink.me/Lrab/appreferral
-2️⃣ Abre la cuenta y selecciona envío de EUR → AUD (Australia)
-3️⃣ Introduce el código promocional:
-👉 JOSEANTO113
-✔️ Comprueba que te suman 15€ al enviar 50€ o más de EUR a AUD
-📍 Si te piden una dirección australiana:
-https://generate.plus/es/direccion/australia-au
-4️⃣ Método de pago:
-Elige el que quieras. Yo usé Apple Pay con Revolut."""),
 
-    "aircash": ("Aircash", 5, """💳 Aircash
-Es una promo muy fácil:
-1️⃣ Descárgate la app de Aircash desde mi enlace y regístrate:
+1️⃣ Regístrate:
+https://app.kriptomat.io/ref/join?referral=bunt8ba4
+
+2️⃣ Deposita ~105€
+
+3️⃣ Compra 100€ en cripto
+
+4️⃣ Mantén 30 días
+
+5️⃣ Recibes 25€"""
+    ),
+
+    "kraken": (
+        "Kraken",
+        200,
+        """💰 Kraken — hasta 200€
+
+📝 Pasos:
+
+1️⃣ Regístrate:
+https://invite.kraken.com/JDNW/06n4hbek
+
+2️⃣ Verifica cuenta
+
+3️⃣ Deposita y compra BTC
+
+4️⃣ Recibes recompensa"""
+    ),
+
+    "taptap": (
+        "TapTap",
+        15,
+        """💸 TapTap — 15€
+
+📝 Pasos:
+
+1️⃣ Descarga:
+https://taptapsend.onelink.me/Lrab/appreferral
+
+2️⃣ Envía EUR → AUD
+
+3️⃣ Código:
+JOSEANTO113"""
+    ),
+
+    "aircash": (
+        "Aircash",
+        5,
+        """💳 Aircash — 5€
+
+📝 Pasos:
+
+1️⃣ Regístrate:
 https://link.aircash.eu/Referral/Index?referralCode=joseantoniog58
-2️⃣ Ingresa un mínimo de 10€ en tu cuenta
-3️⃣ Yo recibiré 10€ por la promoción, de los que te daré 5€
-4️⃣ Solo válido para Android"""),
 
-    "bybit": ("Bybit", 55, """🔥 Bybit EU
-Os dejo la promo de Bybit EU, un exchange de criptomonedas donde puedes comprar, vender y hacer trading con cientos de activos digitales.
-📝 Pasos para ganar 55€:
-Abre este enlace y verifica que te sale el código aplicado:
+2️⃣ Ingresa 10€
+
+3️⃣ Recibes dinero"""
+    ),
+
+    "bybit": (
+        "Bybit",
+        55,
+        """📊 Bybit — 55€
+
+📝 Pasos:
+
+1️⃣ Regístrate:
 https://www.bybit.eu/invite?ref=QB63O3A
-Si no te sale así, cierra el navegador y vuelve a abrir el enlace.
-1️⃣ Verifica identidad y deposita 100€
-Tienes 7 días desde el registro para depositar los 100€, si no, perderás la recompensa.
-Solo por depositar, te acreditan 45€ en BTC en los próximos 3 días.
-2️⃣ Si quieres ganar 10€ adicionales, abre Bybit EU desde el navegador y solicita la tarjeta gratuita (Bybit Card) aplicando este código:
-QB63O3A
-Importante meter el código al solicitar la tarjeta.
-Después, debes gastar 100€ en una o varias compras.""")
+
+2️⃣ Deposita 100€
+
+3️⃣ Recibes recompensa"""
+    )
 
 }
 
@@ -200,29 +271,47 @@ user_data = {}
 def progress_bar(done, total):
     if total == 0:
         return "░░░░░░░░░░"
+
     percent = int((done / total) * 10)
+
     return "█" * percent + "░" * (10 - percent)
 
 def get_keyboard(user_id):
+
     selected = user_data[user_id]["selected"]
+
     keyboard = InlineKeyboardMarkup(inline_keyboard=[])
 
     for key, (name, reward, _) in apps.items():
+
         mark = "☑️" if key in selected else "⬜"
+
         keyboard.inline_keyboard.append([
-            InlineKeyboardButton(text=f"{mark} {name} - {reward}€", callback_data=f"select_{key}")
+            InlineKeyboardButton(
+                text=f"{mark} {name} - {reward}€",
+                callback_data=f"select_{key}"
+            )
         ])
 
     keyboard.inline_keyboard.append([
-        InlineKeyboardButton(text="✅ Confirmar", callback_data="confirm")
+        InlineKeyboardButton(
+            text="✅ Confirmar",
+            callback_data="confirm"
+        )
     ])
 
     keyboard.inline_keyboard.append([
-        InlineKeyboardButton(text="🌐 Página web", url="https://www.cazaeuros.com")
+        InlineKeyboardButton(
+            text="🌐 Página web",
+            url="https://www.cazaeuros.com"
+        )
     ])
 
     keyboard.inline_keyboard.append([
-        InlineKeyboardButton(text="💬 Hablar conmigo", url=f"https://t.me/{OWNER_USERNAME}")
+        InlineKeyboardButton(
+            text="💬 Hablar conmigo",
+            url=f"https://t.me/{OWNER_USERNAME}"
+        )
     ])
 
     return keyboard
@@ -231,12 +320,43 @@ def get_keyboard(user_id):
 
 @dp.message(lambda message: message.text == "/start")
 async def start(message: types.Message):
+
     user_id = message.from_user.id
+
+    subscribed = await check_subscription(user_id)
+
+    if not subscribed:
+
+        keyboard = InlineKeyboardMarkup(
+            inline_keyboard=[
+                [
+                    InlineKeyboardButton(
+                        text="📢 Unirme al canal",
+                        url="https://t.me/cazaeuros"
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text="✅ Ya me uní",
+                        callback_data="check_sub"
+                    )
+                ]
+            ]
+        )
+
+        await message.answer(
+            "⚠️ Para usar el bot debes unirte al canal oficial.\n\n"
+            "👇 Entra y luego pulsa el botón:",
+            reply_markup=keyboard
+        )
+
+        return
+
     user_data[user_id] = load_user(user_id)
 
     await notify_admin(
         f"🚀 Nuevo usuario\n\n"
-        f"👤 {message.from_user.username}\n"
+        f"👤 @{message.from_user.username}\n"
         f"🆔 {message.from_user.id}"
     )
 
@@ -248,37 +368,60 @@ async def start(message: types.Message):
         reply_markup=get_keyboard(user_id)
     )
 
-# ------------------ CAPTURAR MENSAJES ------------------
+# ------------------ MENSAJES ------------------
 
 @dp.message()
 async def capture_messages(message: types.Message):
+
+    if message.text == "/start":
+        return
+
     user = message.from_user
 
     await notify_admin(
         f"📩 Mensaje\n\n"
-        f"👤 {user.username} ({user.id})\n"
+        f"👤 @{user.username} ({user.id})\n"
         f"💬 {message.text}"
     )
 
 # ------------------ PASOS ------------------
 
 async def send_next_step(message, user_id):
+
     data = user_data[user_id]
+
     selected = data["selected"]
+
     step = data["step"]
 
     if step >= len(selected):
+
         await message.answer("🎉 Has terminado todas las promos")
+
         return
 
     app_key = selected[step]
+
     name, reward, instructions = apps[app_key]
+
     total = len(selected)
 
-    keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="✅ HECHO", callback_data="done")],
-        [InlineKeyboardButton(text="⏭ OMITIR", callback_data="skip")]
-    ])
+    keyboard = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(
+                    text="✅ HECHO",
+                    callback_data="done"
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    text="⏭ OMITIR",
+                    callback_data="skip"
+                )
+            ]
+        ]
+    )
 
     await message.answer(
         f"📱 {name} — {reward}€\n\n"
@@ -291,31 +434,76 @@ async def send_next_step(message, user_id):
 
 @dp.callback_query()
 async def callbacks(callback: types.CallbackQuery):
+
     user_id = callback.from_user.id
 
     if user_id not in user_data:
         user_data[user_id] = load_user(user_id)
 
-    if callback.data.startswith("select_"):
+    # -------- CHECK SUB --------
+
+    if callback.data == "check_sub":
+
+        subscribed = await check_subscription(user_id)
+
+        if not subscribed:
+
+            await callback.answer(
+                "❌ Aún no estás unido al canal",
+                show_alert=True
+            )
+
+            return
+
+        await callback.message.answer(
+            "✅ Verificación completada.\n\n"
+            "📲 Ya puedes usar el bot.",
+            reply_markup=get_keyboard(user_id)
+        )
+
+        await callback.answer()
+
+    # -------- SELECT --------
+
+    elif callback.data.startswith("select_"):
+
         key = callback.data.split("_")[1]
 
         if key in user_data[user_id]["selected"]:
             user_data[user_id]["selected"].remove(key)
+
         else:
             user_data[user_id]["selected"].append(key)
 
-        save_user(user_id, user_data[user_id].get("step", 0), user_data[user_id]["selected"])
-        await callback.message.edit_reply_markup(reply_markup=get_keyboard(user_id))
+        save_user(
+            user_id,
+            user_data[user_id].get("step", 0),
+            user_data[user_id]["selected"]
+        )
+
+        await callback.message.edit_reply_markup(
+            reply_markup=get_keyboard(user_id)
+        )
+
         await callback.answer()
 
+    # -------- CONFIRM --------
+
     elif callback.data == "confirm":
+
         selected = user_data[user_id]["selected"]
 
         if not selected:
-            await callback.answer("Selecciona al menos una promo", show_alert=True)
+
+            await callback.answer(
+                "Selecciona al menos una promo",
+                show_alert=True
+            )
+
             return
 
         user_data[user_id]["step"] = 0
+
         save_user(user_id, 0, selected)
 
         total_money = sum(apps[a][1] for a in selected)
@@ -333,23 +521,41 @@ async def callbacks(callback: types.CallbackQuery):
         )
 
         await callback.answer()
+
         await send_next_step(callback.message, user_id)
+
+    # -------- DONE --------
 
     elif callback.data == "done":
+
         user_data[user_id]["step"] += 1
-        save_user(user_id, user_data[user_id]["step"], user_data[user_id]["selected"])
+
+        save_user(
+            user_id,
+            user_data[user_id]["step"],
+            user_data[user_id]["selected"]
+        )
+
         await callback.answer()
+
         await send_next_step(callback.message, user_id)
 
+    # -------- SKIP --------
+
     elif callback.data == "skip":
+
         user_data[user_id]["step"] += 1
+
         await callback.answer()
+
         await send_next_step(callback.message, user_id)
 
 # ------------------ RUN ------------------
 
 async def main():
-    print("🚀 Bot iniciado")
+
+    print("🚀 Bot iniciado correctamente")
+
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
